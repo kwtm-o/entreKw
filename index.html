@@ -387,7 +387,11 @@
   const analytics = getAnalytics(app);
   const db = getFirestore(app);
 
-  async function saveData(date, content) {
+  // 🔑 グローバルに関数を登録
+  window.saveData = async function () {
+    const date = document.querySelector('.date-input').value;
+    const content = document.querySelector('.goals-textarea').value;
+
     try {
       await addDoc(collection(db, "goals"), {
         date: date,
@@ -398,9 +402,7 @@
     } catch (e) {
       alert("保存失敗: " + e.message);
     }
-  }
-
-  // saveData関数をボタンのクリックなどで呼び出す形で使います
+  };
 </script>
 </html>
 
